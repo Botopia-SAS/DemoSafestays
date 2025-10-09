@@ -1,49 +1,42 @@
+"use client";
+
+import { Shield, Armchair, MapPin, Users } from "lucide-react";
+
 export function Features() {
   const features = [
     {
-      title: "Verificación de Propiedades",
-      description: "Todas nuestras propiedades están verificadas para garantizar tu seguridad.",
-      icon: "✓",
+      title: "Verified Security",
+      icon: Shield,
     },
     {
-      title: "Reservas Seguras",
-      description: "Sistema de pago seguro y protección al comprador incluida.",
-      icon: "🔒",
+      title: "Premium Interior Design",
+      icon: Armchair,
     },
     {
-      title: "Atención 24/7",
-      description: "Soporte al cliente disponible en todo momento para ayudarte.",
-      icon: "💬",
+      title: "Prime Location",
+      icon: MapPin,
     },
     {
-      title: "Mejores Precios",
-      description: "Precios competitivos sin comisiones ocultas.",
-      icon: "💰",
+      title: "Personalized Comprehensive Management",
+      icon: Users,
     },
   ];
 
   return (
-    <section id="features" className="py-20 bg-white">
+    <section id="features" className="py-20 bg-[#F5EFE7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            ¿Por qué elegir SafeStays?
-          </h2>
-          <p className="text-xl text-gray-600">
-            Ofrecemos lo mejor para tu tranquilidad
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="p-6 bg-gray-50 rounded-lg hover:shadow-lg transition-shadow"
+              className="flex flex-col items-center text-center"
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              <div className="mb-6">
+                <feature.icon className="w-16 h-16 text-primary" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold text-primary playfair-display-sc">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">{feature.description}</p>
             </div>
           ))}
         </div>
