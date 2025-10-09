@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 
 export function Footer() {
@@ -52,9 +53,9 @@ export function Footer() {
             <h4 className="text-lg font-semibold mb-4 playfair-display-sc">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
+                <Link href="/" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#properties" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors text-sm">

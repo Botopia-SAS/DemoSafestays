@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 
 interface ContentItem {
@@ -16,11 +17,7 @@ export function ContentSection() {
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
-  useEffect(() => {
-    loadItems();
-  }, []);
-
-  const loadItems = async () => {
+  const loadItems = useCallback(async () => {
     try {
       // Check if Supabase credentials are configured
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
@@ -41,7 +38,11 @@ export function ContentSection() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    loadItems();
+  }, [loadItems]);
 
   if (loading) {
     return (
@@ -77,11 +78,14 @@ export function ContentSection() {
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow"
             >
               {item.image_url && (
-                <img
-                  src={item.image_url}
-                  alt={item.title}
-                  className="w-full h-48 object-cover"
-                />
+                <div className="relative w-full h-48">
+                  <Image
+                    src={item.image_url}
+                    alt={item.title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               )}
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">

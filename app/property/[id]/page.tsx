@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useState, useEffect, useCallback } from "react";
+import { useParams } from "next/navigation";
+import Image from "next/image";
 import { Property } from "@/types/property";
 import { createClient } from "@/lib/supabase/client";
 import { Navbar } from "@/components/landing/Navbar";
@@ -11,14 +12,12 @@ import {
   Bath,
   Square,
   MapPin,
-  ArrowLeft,
   Star,
   Check,
 } from "lucide-react";
 
 export default function PropertyDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -28,11 +27,7 @@ export default function PropertyDetailPage() {
     setIsLoaded(true);
   }, []);
 
-  useEffect(() => {
-    loadProperty();
-  }, [params.id]);
-
-  const loadProperty = async () => {
+  const loadProperty = useCallback(async () => {
     try {
       const supabase = createClient();
       const { data, error } = await supabase
@@ -48,7 +43,11 @@ export default function PropertyDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id]);
+
+  useEffect(() => {
+    loadProperty();
+  }, [loadProperty]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -98,15 +97,17 @@ export default function PropertyDetailPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
             <div>
-              <div className="rounded-2xl overflow-hidden shadow-xl mb-4">
+              <div className="rounded-2xl overflow-hidden shadow-xl mb-4 relative h-[500px]">
                 {property.images.length > 0 ? (
-                  <img
+                  <Image
                     src={property.images[selectedImageIndex].url}
                     alt={property.images[selectedImageIndex].alt}
-                    className="w-full h-[500px] object-cover"
+                    fill
+                    className="object-cover"
+                    priority
                   />
                 ) : (
-                  <div className="w-full h-[500px] bg-gradient-to-br from-accent to-muted flex items-center justify-center">
+                  <div className="w-full h-full bg-gradient-to-br from-accent to-muted flex items-center justify-center">
                     <MapPin className="w-24 h-24 text-muted-foreground/30" />
                   </div>
                 )}
@@ -118,16 +119,17 @@ export default function PropertyDetailPage() {
                     <button
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
-                      className={`rounded-lg overflow-hidden transition-all ${
+                      className={`rounded-lg overflow-hidden transition-all relative h-24 ${
                         selectedImageIndex === index
                           ? "ring-4 ring-primary shadow-lg"
                           : "opacity-70 hover:opacity-100"
                       }`}
                     >
-                      <img
+                      <Image
                         src={image.url}
                         alt={image.alt}
-                        className="w-full h-24 object-cover"
+                        fill
+                        className="object-cover"
                       />
                     </button>
                   ))}

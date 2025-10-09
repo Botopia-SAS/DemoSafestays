@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 interface NavbarProps {
   isLoaded?: boolean;
@@ -36,9 +37,9 @@ export function Navbar({ isLoaded = false, alwaysShowBackground = false }: Navba
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="text-2xl font-bold text-white playfair-display-sc hover:scale-110 transition-transform duration-300">
+            <Link href="/" className="text-2xl font-bold text-white playfair-display-sc hover:scale-110 transition-transform duration-300">
               SafeStays
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
