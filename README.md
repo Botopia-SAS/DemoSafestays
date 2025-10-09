@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SafeStays Landing Page
 
-## Getting Started
+Landing page pública de SafeStays. Muestra contenido dinámico desde Supabase.
 
-First, run the development server:
+## 🚀 Inicio Rápido
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📋 Características
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ Hero section
+- ✅ Sección de características
+- ✅ **Contenido dinámico desde Supabase**
+- ✅ Responsive design
+- ✅ Sin autenticación requerida (público)
 
-## Learn More
+## 🔧 Configuración
 
-To learn more about Next.js, take a look at the following resources:
+Las credenciales de Supabase ya están configuradas en `.env.local`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```env
+NEXT_PUBLIC_SUPABASE_URL=tu-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-key
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📦 Estructura
 
-## Deploy on Vercel
+```
+landing/
+├── app/
+│   └── page.tsx              # Página principal
+├── components/
+│   └── landing/
+│       ├── Hero.tsx          # Sección hero
+│       ├── Features.tsx      # Características
+│       └── ContentSection.tsx # Contenido dinámico
+└── lib/
+    └── supabase/
+        └── client.ts         # Cliente Supabase
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌐 Despliegue
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+vercel
+```
+
+Recuerda agregar las variables de entorno en Vercel.
+
+## 📝 Notas
+
+- El contenido se gestiona desde el **Dashboard** (proyecto separado)
+- Lee datos de la tabla `content` en Supabase
+- No requiere autenticación
