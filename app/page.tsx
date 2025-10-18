@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { HighlightedProperties } from "@/components/landing/HighlightedProperties";
+import { PropertiesFromSheets } from "@/components/landing/PropertiesFromSheets";
 import { Features } from "@/components/landing/Features";
-import { ContentSection } from "@/components/landing/ContentSection";
 import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
@@ -18,9 +17,8 @@ export default function Home() {
       {/* Main Content */}
       <main>
         <Hero onLoadComplete={setIsLoaded} />
-        <HighlightedProperties />
+        <PropertiesFromSheets />
         <Features />
-        <ContentSection />
       </main>
 
       <Footer />

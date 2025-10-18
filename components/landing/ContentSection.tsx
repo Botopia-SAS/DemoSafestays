@@ -19,22 +19,27 @@ export function ContentSection() {
 
   const loadItems = useCallback(async () => {
     try {
-      // Check if Supabase credentials are configured
-      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        console.warn("Supabase credentials not configured. Skipping content load.");
-        setLoading(false);
-        return;
-      }
-
       const { data, error } = await supabase
         .from("content")
         .select("*")
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error loading content:", {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        // Don't throw, just return empty array
+        setItems([]);
+        return;
+      }
+
       setItems(data || []);
     } catch (error) {
       console.error("Error loading items:", error);
+      setItems([]);
     } finally {
       setLoading(false);
     }
