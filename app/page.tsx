@@ -4,7 +4,10 @@ import { useState } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { PropertiesFromSheets } from "@/components/landing/PropertiesFromSheets";
-import { Features } from "@/components/landing/Features";
+import { LuxurySection } from "@/components/landing/LuxurySection";
+import { MadridHeroSection } from "@/components/landing/MadridHeroSection";
+import { ImageCarousel } from "@/components/landing/ImageCarousel";
+import { ExperienceSection } from "@/components/landing/ExperienceSection";
 import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
@@ -18,7 +21,10 @@ export default function Home() {
       <main>
         <Hero onLoadComplete={setIsLoaded} />
         <PropertiesFromSheets />
-        <Features />
+        <LuxurySection />
+        <MadridHeroSection />
+        <ImageCarousel />
+        <ExperienceSection />
       </main>
 
       <Footer />

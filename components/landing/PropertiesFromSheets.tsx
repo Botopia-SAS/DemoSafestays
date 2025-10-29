@@ -2,53 +2,48 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { BedDouble, Square, MapPin, Star, Bath, Calendar } from "lucide-react";
+import { PropertyCard } from "./PropertyCard";
 
 interface SheetProperty {
   [key: string]: string | number | undefined;
-  // Columnas del Google Sheet según la estructura proporcionada
-  CODE?: string | undefined;
-  Location?: string | undefined;
-  Date?: string | undefined;
-  Month?: string | undefined;
-  Price?: string | number | undefined;
-  Beds?: string | number | undefined;
-  Baths?: string | number | undefined;
-  Utilities?: string | undefined;
-  mts?: string | number | undefined;
-  Street?: string | undefined;
-  "#"?: string | undefined; // Número de calle
-  Agency?: string | undefined;
-  ID?: string | undefined;
-  Brochure?: string | undefined;
-  Video?: string | undefined;
-  "Whatsapp Message"?: string | undefined;
-  images?: string | undefined;
-  video?: string | undefined;
+  CODE?: string;
+  Location?: string;
+  Date?: string;
+  Month?: string;
+  Price?: string | number;
+  Beds?: string | number;
+  Baths?: string | number;
+  Utilities?: string;
+  mts?: string | number;
+  Street?: string;
+  "#"?: string;
+  Agency?: string;
+  ID?: string;
+  Brochure?: string;
+  Video?: string;
+  "Whatsapp Message"?: string;
+  images?: string;
+  video?: string;
 }
 
-// Helper function to get first image from Cloudinary JSON array or direct URL
 const getFirstImageUrl = (imagesField: string | undefined): string => {
   if (!imagesField) return "";
 
-  // Check if it's a JSON array (Cloudinary format)
   if (imagesField.startsWith("[")) {
     try {
       const parsed = JSON.parse(imagesField);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed[0]; // Return first image URL from Cloudinary
+        return parsed[0];
       }
     } catch (e) {
       console.error("Error parsing images JSON:", e);
     }
   }
 
-  // If it's a regular URL (Cloudinary or other), return it
   if (imagesField.startsWith("http")) {
     return imagesField;
   }
 
-  // If it's just text (not a URL), return empty
   return "";
 };
 
@@ -88,12 +83,12 @@ export function PropertiesFromSheets() {
     }
   };
 
-  const formatPrice = (price: string | number) => {
+  const formatPrice = (price: string | number): string => {
     const numPrice =
       typeof price === "string"
         ? parseFloat(price.replace(/[^0-9.-]/g, ""))
         : price;
-    if (isNaN(numPrice)) return price;
+    if (isNaN(numPrice)) return String(price);
 
     return new Intl.NumberFormat("es-ES", {
       style: "currency",
@@ -155,8 +150,10 @@ export function PropertiesFromSheets() {
     );
   }
 
+  const displayedProperties = properties.slice(0, 3);
+
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 pb-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary playfair-display-sc mb-4">
@@ -169,154 +166,34 @@ export function PropertiesFromSheets() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.map((property, index) => {
+          {displayedProperties.map((property, index) => {
             const imageUrl = getFirstImageUrl(property.images);
+            const propertyId = (property.CODE as string) || String(index);
             return (
-              <div
+              <PropertyCard
                 key={property.CODE || index}
-                onMouseEnter={() =>
-                  setHoveredId((property.CODE as string) || String(index))
-                }
+                property={property}
+                index={index}
+                isHovered={hoveredId === propertyId}
+                onMouseEnter={() => setHoveredId(propertyId)}
                 onMouseLeave={() => setHoveredId(null)}
-                className="group block"
-              >
-                <div
-                  className={`bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-500 ${
-                    hoveredId === (property.CODE || String(index))
-                      ? "scale-105 shadow-2xl"
-                      : "scale-100"
-                  }`}
-                >
-                  <Link
-                    href={`/property/${encodeURIComponent(
-                      property.CODE || index
-                    )}`}
-                  >
-                    <div className="relative h-72 overflow-hidden cursor-pointer">
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={(property.Location as string) || "Property"}
-                          className={`w-full h-full object-cover transition-transform duration-700 ${
-                            hoveredId === (property.CODE || String(index))
-                              ? "scale-110"
-                              : "scale-100"
-                          }`}
-                          onError={(e) => {
-                            // Fallback if image fails to load
-                            (e.target as HTMLImageElement).style.display =
-                              "none";
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-accent to-muted flex items-center justify-center">
-                          <MapPin className="w-16 h-16 text-muted-foreground/30" />
-                        </div>
-                      )}
-
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-2xl font-bold text-white playfair-display-sc mb-1">
-                          {property.Location || "Madrid"}
-                        </h3>
-                        <div className="flex items-center gap-2 text-white/90 text-sm">
-                          <Calendar className="w-4 h-4" />
-                          <span>Disponible: {getAvailableDate(property)}</span>
-                        </div>
-                      </div>
-
-                      {property.CODE && (
-                        <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                          {property.CODE}
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        {property.Street || "Centro"}
-                      </span>
-                      <span className="text-2xl font-bold text-primary">
-                        {formatPrice(property.Price || 0)}
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      {property.Beds && (
-                        <div className="flex items-center gap-2">
-                          <BedDouble className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm text-foreground">
-                            {property.Beds}{" "}
-                            {Number(property.Beds) === 1
-                              ? "Habitación"
-                              : "Habitaciones"}
-                          </span>
-                        </div>
-                      )}
-                      {property.Baths && (
-                        <div className="flex items-center gap-2">
-                          <Bath className="w-4 h-4 text-muted-foreground" />
-                          <span className="text-sm text-foreground">
-                            {property.Baths}{" "}
-                            {Number(property.Baths) === 1 ? "Baño" : "Baños"}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    {property.Utilities && (
-                      <div className="text-sm text-muted-foreground mb-3">
-                        <strong>Servicios:</strong> {property.Utilities}
-                      </div>
-                    )}
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ${
-                        hoveredId === (property.CODE || String(index))
-                          ? "max-h-40 opacity-100"
-                          : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <div className="border-t border-border pt-4 mt-2">
-                        <div className="flex gap-2">
-                          {property.Brochure && (
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                window.open(
-                                  property.Brochure as string,
-                                  "_blank",
-                                  "noopener,noreferrer"
-                                );
-                              }}
-                              className="flex-1 px-3 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary/90 text-center"
-                            >
-                              Ver Brochure
-                            </button>
-                          )}
-                          {property.Video && (
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                window.open(
-                                  property.Video as string,
-                                  "_blank",
-                                  "noopener,noreferrer"
-                                );
-                              }}
-                              className="flex-1 px-3 py-2 bg-secondary text-white text-sm rounded-lg hover:bg-secondary/90 text-center"
-                            >
-                              Ver Video
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                imageUrl={imageUrl}
+                formatPrice={formatPrice}
+                getAvailableDate={getAvailableDate}
+              />
             );
           })}
         </div>
+
+        {properties.length > 3 && (
+          <div className="text-center mt-12">
+            <Link href="/propiedadesdisponibles">
+              <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                Ver más
+              </button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

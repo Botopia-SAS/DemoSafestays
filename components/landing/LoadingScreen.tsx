@@ -24,7 +24,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
       {/* Background image with blur and dark overlay */}
       <div className="absolute inset-0">
         <Image
-          src="/image 6.png"
+          src="/image1.jpeg"
           alt="SafeStays"
           fill
           className="object-cover"
