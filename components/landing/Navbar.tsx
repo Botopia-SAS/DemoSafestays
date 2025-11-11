@@ -46,7 +46,12 @@ export function Navbar({ isLoaded = false, alwaysShowBackground = false }: Navba
           <div className="hidden md:flex items-center gap-8">
             <LockedNavItem label="About" />
             <LockedNavItem label="Services" />
-            <LockedNavItem label="Properties" />
+            <Link 
+              href="/propiedadesdisponibles" 
+              className="text-white/90 hover:text-white transition-colors uppercase text-sm tracking-wider font-light"
+            >
+              Properties
+            </Link>
             <LockedNavItem label="Contact" />
 
             <div className="relative group">
@@ -90,7 +95,7 @@ export function Navbar({ isLoaded = false, alwaysShowBackground = false }: Navba
 
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-3 bg-black/30 backdrop-blur-lg rounded-lg mt-2 px-4 border border-white/20">
-            {["About", "Services", "Properties", "Contact"].map((item) => (
+            {["About", "Services", "Contact"].map((item) => (
               <button
                 key={item}
                 onClick={(e) => e.preventDefault()}
@@ -100,6 +105,14 @@ export function Navbar({ isLoaded = false, alwaysShowBackground = false }: Navba
                 <LockIcon />
               </button>
             ))}
+            
+            <Link
+              href="/propiedadesdisponibles"
+              className="w-full flex items-center justify-between text-white/90 hover:text-white transition-colors uppercase text-sm tracking-wider"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <span>Properties</span>
+            </Link>
 
             <div className="pt-2 pb-1 border-t border-white/10">
               <p className="text-xs text-white/40 text-center">

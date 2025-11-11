@@ -31,8 +31,8 @@ export function ImageCarousel() {
   };
 
   return (
-    <section className="relative bg-white py-32 overflow-hidden">
-      <div className="relative w-full">
+    <section className="relative bg-white py-16 overflow-hidden">
+      <div className="relative w-full pt-8">
         <div className="relative h-[700px] flex items-center justify-center gap-4">
           {/* Left side image - blurred */}
           <div className={`relative w-[25%] h-[500px] rounded-2xl overflow-hidden opacity-80 blur-xs transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] transform`}>
@@ -104,24 +104,6 @@ export function ImageCarousel() {
           </div>
         </div>
       </div>
-
-      {/* Keyframes de la animación de deslizamiento suave */}
-      <style jsx>{`
-        @keyframes slideInLeft {
-          from { transform: translateX(28px); opacity: 0.0; }
-          to   { transform: translateX(0);     opacity: 1;   }
-        }
-        @keyframes slideInRight {
-          from { transform: translateX(-28px); opacity: 0.0; }
-          to   { transform: translateX(0);      opacity: 1;   }
-        }
-        .animate-slide-in-left  {
-          animation: slideInLeft 500ms cubic-bezier(0.22,1,0.36,1);
-        }
-        .animate-slide-in-right {
-          animation: slideInRight 500ms cubic-bezier(0.22,1,0.36,1);
-        }
-      `}</style>
     </section>
   );
 }

@@ -12,6 +12,8 @@ import {
   FileDown,
 } from "lucide-react";
 import jsPDF from "jspdf";
+import { Navbar } from "@/components/landing/Navbar";
+import { Footer } from "@/components/landing/Footer";
 
 interface PropertyDetail {
   [key: string]: string | number | undefined;
@@ -247,23 +249,31 @@ export default function PropertyDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-      </div>
+      <>
+        <Navbar isLoaded={true} alwaysShowBackground={true} />
+        <div className="min-h-screen flex items-center justify-center bg-white pt-20">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+        </div>
+        <Footer />
+      </>
     );
   }
 
   if (error || !property) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-4">Propiedad no encontrada</h1>
-        <button
-          onClick={() => router.push("/")}
-          className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90"
-        >
-          Volver al inicio
-        </button>
-      </div>
+      <>
+        <Navbar isLoaded={true} alwaysShowBackground={true} />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-white pt-20">
+          <h1 className="text-2xl font-light playfair-display-sc mb-4 text-gray-800">Property not found</h1>
+          <button
+            onClick={() => router.push("/propiedadesdisponibles")}
+            className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 font-light"
+          >
+            Back to Properties
+          </button>
+        </div>
+        <Footer />
+      </>
     );
   }
 
@@ -271,53 +281,55 @@ export default function PropertyDetailPage() {
   const videoEmbedUrl = convertVideoToEmbed(property.Video);
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => router.push("/")}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span>Volver</span>
-            </button>
+    <>
+      <Navbar isLoaded={true} alwaysShowBackground={true} />
+      
+      <div className="min-h-screen bg-white pt-20">
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200 sticky top-16 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => router.push("/propiedadesdisponibles")}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors font-light"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                <span>Back</span>
+              </button>
 
-            <button
-              onClick={generatePDF}
-              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
-            >
-              <FileDown className="w-5 h-5" />
-              <span>Descargar PDF</span>
-            </button>
+              <button
+                onClick={generatePDF}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors font-light"
+              >
+                <FileDown className="w-5 h-5" />
+                <span>Download PDF</span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Property Header */}
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">{/* Property Header */}
         <div className="mb-8">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-primary playfair-display-sc mb-2">
+              <h1 className="text-4xl md:text-5xl font-light text-gray-800 playfair-display-sc mb-2">
                 {property.Location}
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg text-gray-600 font-light">
                 {property.Street}
                 {property["#"] ? ` ${property["#"]}` : ""}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-sm text-muted-foreground mb-1">Código</p>
-              <p className="text-2xl font-bold text-primary">{property.CODE}</p>
+              <p className="text-sm text-gray-500 mb-1 font-light">Code</p>
+              <p className="text-2xl font-light text-gray-800 playfair-display-sc">{property.CODE}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2 text-gray-600 font-light">
             <Calendar className="w-5 h-5" />
-            <span>Disponible desde: {getAvailableDate(property)}</span>
+            <span>Available from: {getAvailableDate(property)}</span>
           </div>
         </div>
 
@@ -335,70 +347,70 @@ export default function PropertyDetailPage() {
         {/* Property Details Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
           {/* Main Info Card */}
-          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              Detalles de la Propiedad
+          <div className="lg:col-span-2 bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+            <h2 className="text-2xl font-light playfair-display-sc text-gray-800 mb-6">
+              Property Details
             </h2>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-accent rounded-lg">
-                  <BedDouble className="w-6 h-6 text-primary" />
+                <div className="p-3 bg-gray-100 rounded-lg">
+                  <BedDouble className="w-6 h-6 text-gray-800" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Habitaciones</p>
-                  <p className="text-lg font-semibold">
+                  <p className="text-sm text-gray-500 font-light">Bedrooms</p>
+                  <p className="text-lg font-light text-gray-800">
                     {property.Beds || "N/A"}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-accent rounded-lg">
-                  <Bath className="w-6 h-6 text-primary" />
+                <div className="p-3 bg-gray-100 rounded-lg">
+                  <Bath className="w-6 h-6 text-gray-800" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Baños</p>
-                  <p className="text-lg font-semibold">
+                  <p className="text-sm text-gray-500 font-light">Bathrooms</p>
+                  <p className="text-lg font-light text-gray-800">
                     {property.Baths || "N/A"}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-accent rounded-lg">
-                  <Square className="w-6 h-6 text-primary" />
+                <div className="p-3 bg-gray-100 rounded-lg">
+                  <Square className="w-6 h-6 text-gray-800" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Área</p>
-                  <p className="text-lg font-semibold">
+                  <p className="text-sm text-gray-500 font-light">Area</p>
+                  <p className="text-lg font-light text-gray-800">
                     {property.mts || "N/A"} m²
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="border-t border-border pt-6">
-              <h3 className="text-lg font-semibold mb-4">
-                Información Adicional
+            <div className="border-t border-gray-200 pt-6">
+              <h3 className="text-lg font-light playfair-display-sc text-gray-800 mb-4">
+                Additional Information
               </h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Servicios:</span>
-                  <span className="font-medium">
+                  <span className="text-gray-500 font-light">Utilities:</span>
+                  <span className="font-light text-gray-800">
                     {property.Utilities || "N/A"}
                   </span>
                 </div>
                 {property.Agency && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Agencia:</span>
-                    <span className="font-medium">{property.Agency}</span>
+                    <span className="text-gray-500 font-light">Agency:</span>
+                    <span className="font-light text-gray-800">{property.Agency}</span>
                   </div>
                 )}
                 {property.ID && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">ID:</span>
-                    <span className="font-medium">{property.ID}</span>
+                    <span className="text-gray-500 font-light">ID:</span>
+                    <span className="font-light text-gray-800">{property.ID}</span>
                   </div>
                 )}
               </div>
@@ -407,10 +419,10 @@ export default function PropertyDetailPage() {
 
           {/* Price Card */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-lg p-8 sticky top-24">
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200 sticky top-24">
               <div className="text-center mb-6">
-                <p className="text-sm text-muted-foreground mb-2">Precio</p>
-                <p className="text-4xl font-bold text-primary">
+                <p className="text-sm text-gray-500 mb-2 font-light">Price</p>
+                <p className="text-4xl font-light text-gray-800 playfair-display-sc">
                   {formatPrice(property.Price || 0)}
                 </p>
               </div>
@@ -421,9 +433,9 @@ export default function PropertyDetailPage() {
                     href={property.Brochure as string}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 bg-primary text-white text-center rounded-lg hover:bg-primary/90 transition-colors"
+                    className="block w-full px-4 py-3 bg-gray-900 text-white text-center rounded-lg hover:bg-gray-800 transition-colors font-light"
                   >
-                    Ver Brochure Completo
+                    View Full Brochure
                   </a>
                 )}
 
@@ -432,9 +444,9 @@ export default function PropertyDetailPage() {
                     href={property.Video as string}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 bg-secondary text-white text-center rounded-lg hover:bg-secondary/90 transition-colors"
+                    className="block w-full px-4 py-3 border border-gray-900 text-gray-900 text-center rounded-lg hover:bg-gray-900 hover:text-white transition-colors font-light"
                   >
-                    Ver Video
+                    Watch Video
                   </a>
                 )}
 
@@ -445,9 +457,9 @@ export default function PropertyDetailPage() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 bg-green-600 text-white text-center rounded-lg hover:bg-green-700 transition-colors"
+                    className="block w-full px-4 py-3 bg-green-600 text-white text-center rounded-lg hover:bg-green-700 transition-colors font-light"
                   >
-                    Compartir por WhatsApp
+                    Share via WhatsApp
                   </a>
                 )}
               </div>
@@ -457,9 +469,9 @@ export default function PropertyDetailPage() {
 
         {/* Video Section */}
         {videoEmbedUrl && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-foreground mb-6">
-              Video de la Propiedad
+          <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+            <h2 className="text-2xl font-light playfair-display-sc text-gray-800 mb-6">
+              Property Video
             </h2>
             <div className="aspect-video rounded-lg overflow-hidden">
               <iframe
@@ -472,7 +484,10 @@ export default function PropertyDetailPage() {
             </div>
           </div>
         )}
+        </div>
+        
+        <Footer />
       </div>
-    </div>
+    </>
   );
 }

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BedDouble, Square, MapPin, Star, Bath, Calendar, ArrowLeft, X, Lock } from "lucide-react";
 import { Navbar } from "@/components/landing/Navbar";
+import { Hero } from "@/components/landing/Hero";
+import { Footer } from "@/components/landing/Footer";
 
 interface SheetProperty {
   [key: string]: string | number | undefined;
@@ -120,14 +122,25 @@ export default function PropiedadesDisponiblesPage() {
   if (loading) {
     return (
       <>
-        <Navbar isLoaded={true} alwaysShowBackground={true} />
-        <section className="min-h-screen py-20 bg-white pt-24">
+        <Navbar isLoaded={true} alwaysShowBackground={false} />
+        <Hero />
+        <section 
+          className="relative min-h-screen py-20 bg-white overflow-visible"
+          style={{
+            clipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            WebkitClipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            marginTop: '-6vw',
+            paddingTop: '12vw'
+          }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
             </div>
           </div>
         </section>
+        
+        <Footer />
       </>
     );
   }
@@ -135,22 +148,33 @@ export default function PropiedadesDisponiblesPage() {
   if (error) {
     return (
       <>
-        <Navbar isLoaded={true} alwaysShowBackground={true} />
-        <section className="min-h-screen py-20 bg-white pt-24">
+        <Navbar isLoaded={true} alwaysShowBackground={false} />
+        <Hero />
+        <section 
+          className="relative min-h-screen py-20 bg-white overflow-visible"
+          style={{
+            clipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            WebkitClipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            marginTop: '-6vw',
+            paddingTop: '12vw'
+          }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <p className="text-red-600 mb-4">
-                Error al cargar las propiedades: {error}
+              <p className="text-red-600 mb-4 font-light">
+                Error loading properties: {error}
               </p>
               <button
                 onClick={loadProperties}
-                className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90"
+                className="px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 font-light"
               >
-                Reintentar
+                Retry
               </button>
             </div>
           </div>
         </section>
+        
+        <Footer />
       </>
     );
   }
@@ -158,16 +182,27 @@ export default function PropiedadesDisponiblesPage() {
   if (properties.length === 0) {
     return (
       <>
-        <Navbar isLoaded={true} alwaysShowBackground={true} />
-        <section className="min-h-screen py-20 bg-white pt-24">
+        <Navbar isLoaded={true} alwaysShowBackground={false} />
+        <Hero />
+        <section 
+          className="relative min-h-screen py-20 bg-white overflow-visible"
+          style={{
+            clipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            WebkitClipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+            marginTop: '-6vw',
+            paddingTop: '12vw'
+          }}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <p className="text-muted-foreground">
-                No hay propiedades disponibles en este momento.
+              <p className="text-gray-600 font-light">
+                No properties available at the moment.
               </p>
             </div>
           </div>
         </section>
+        
+        <Footer />
       </>
     );
   }
@@ -186,16 +221,25 @@ export default function PropiedadesDisponiblesPage() {
 
   return (
     <>
-      <Navbar isLoaded={true} alwaysShowBackground={true} />
+      <Navbar isLoaded={true} alwaysShowBackground={false} />
+      <Hero />
 
-      <section className="min-h-screen py-20 bg-white pt-24">
+      <section 
+        className="relative min-h-screen py-20 bg-white overflow-visible"
+        style={{
+          clipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+          WebkitClipPath: 'polygon(0 6vw, 100% 0, 100% 100%, 0 100%)',
+          marginTop: '-6vw',
+          paddingTop: '12vw'
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary playfair-display-sc mb-4">
-              Propiedades Disponibles
+            <h1 className="text-4xl md:text-5xl font-light text-gray-800 playfair-display-sc mb-4">
+              Available Properties
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Descubre nuestras propiedades disponibles en Salamanca
+            <p className="text-lg font-light text-gray-600 max-w-2xl mx-auto">
+              Discover our available properties in Salamanca
             </p>
           </div>
 
@@ -591,6 +635,8 @@ export default function PropiedadesDisponiblesPage() {
           </div>
         </div>
       </section>
+      
+      <Footer />
     </>
   );
 }

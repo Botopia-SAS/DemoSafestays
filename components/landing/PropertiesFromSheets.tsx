@@ -153,8 +153,8 @@ export function PropertiesFromSheets() {
   const displayedProperties = properties.slice(0, 3);
 
   return (
-    <section className="py-20 pb-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative py-28 pb-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-primary playfair-display-sc mb-4">
             Propiedades Disponibles

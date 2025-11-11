@@ -55,17 +55,15 @@ export function Hero({ onLoadComplete }: { onLoadComplete?: (isLoaded: boolean) 
               />
             </div>
           ))}
-          {/* Dark overlay with blur effect */}
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+          {/* Overlay with white tint effect */}
+          <div className="absolute inset-0 bg-white/50 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] pointer-events-none" />
         </div>
 
         {/* Content with SearchBar */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-16">
           <SearchBar isLoaded={isLoaded} />
         </div>
-
-        {/* Diagonal bottom edge - positioned much lower to show full image */}
-        <div className="absolute -bottom-1 left-0 right-0 h-14 bg-white z-20" style={{ clipPath: 'polygon(0 100%, 100% 0, 100% 100%, 0 100%)' }}></div>
       </section>
     </>
   );

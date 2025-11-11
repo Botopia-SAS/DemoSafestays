@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { PropertiesFromSheets } from "@/components/landing/PropertiesFromSheets";
+import { MilanSection } from "@/components/landing/MilanSection";
 import { LuxurySection } from "@/components/landing/LuxurySection";
 import { MadridHeroSection } from "@/components/landing/MadridHeroSection";
 import { ImageCarousel } from "@/components/landing/ImageCarousel";
@@ -20,11 +20,11 @@ export default function Home() {
       {/* Main Content */}
       <main>
         <Hero onLoadComplete={setIsLoaded} />
-        <PropertiesFromSheets />
+        <MilanSection />
         <LuxurySection />
         <MadridHeroSection />
-        <ImageCarousel />
         <ExperienceSection />
+        <ImageCarousel />
       </main>
 
       <Footer />
