@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 
-export function SearchBar({ isLoaded = false }: { isLoaded?: boolean }) {
+export function SearchBar(props: Readonly<{ isLoaded?: boolean }>) {
+  const { isLoaded = false } = props;
   const [city, setCity] = useState("");
   const [dates, setDates] = useState("");
 
@@ -29,10 +30,11 @@ export function SearchBar({ isLoaded = false }: { isLoaded?: boolean }) {
       <div className="bg-white/95 backdrop-blur-sm rounded-full shadow-2xl p-1.5 flex items-center gap-2 animate-scale-in animation-delay-500">
         {/* Where Section */}
         <div className="flex-1 px-4 py-2 border-r border-gray-200">
-          <label className="block text-xs font-semibold text-gray-900 mb-1">
+          <label htmlFor="where-input" className="block text-xs font-semibold text-gray-900 mb-1">
             Where?
           </label>
           <input
+            id="where-input"
             type="text"
             placeholder="Select a city"
             value={city}
@@ -43,10 +45,11 @@ export function SearchBar({ isLoaded = false }: { isLoaded?: boolean }) {
 
         {/* When Section */}
         <div className="flex-1 px-4 py-2">
-          <label className="block text-xs font-semibold text-gray-900 mb-1">
+          <label htmlFor="when-input" className="block text-xs font-semibold text-gray-900 mb-1">
             When?
           </label>
           <input
+            id="when-input"
             type="text"
             placeholder="Select dates"
             value={dates}

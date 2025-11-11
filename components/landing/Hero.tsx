@@ -13,7 +13,8 @@ const IMAGES = [
   '/imagen5.jpeg'
 ];
 
-export function Hero({ onLoadComplete }: { onLoadComplete?: (isLoaded: boolean) => void }) {
+export function Hero(props: Readonly<{ onLoadComplete?: (isLoaded: boolean) => void }>) {
+  const { onLoadComplete } = props;
   const [showLoading, setShowLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -57,12 +58,17 @@ export function Hero({ onLoadComplete }: { onLoadComplete?: (isLoaded: boolean) 
           ))}
           {/* Overlay with white tint effect */}
           <div className="absolute inset-0 bg-white/50 pointer-events-none" />
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px] pointer-events-none" />
+          {/* Removed backdrop blur to keep background images sharp */}
+          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         </div>
 
         {/* Content with SearchBar */}
         <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-16">
-          <SearchBar isLoaded={isLoaded} />
+          {/* Solo movemos visualmente el título y el searchbar hacia arriba con transform
+              Mantiene el flujo del DOM igual y no toca el resto del hero */}
+          <div className="w-full flex justify-center transform -translate-y-24 md:-translate-y-32 transition-transform duration-300">
+            <SearchBar isLoaded={isLoaded} />
+          </div>
         </div>
       </section>
     </>
