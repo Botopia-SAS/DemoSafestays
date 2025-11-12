@@ -13,7 +13,7 @@ export function LuxurySection() {
         paddingBottom: '12vw'
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-10">
         <div className="text-left">
           <p className="text-xs font-light text-gray-600 mb-4 tracking-[0.2em] uppercase">From Vision to Legacy</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-primary playfair-display-sc leading-tight">

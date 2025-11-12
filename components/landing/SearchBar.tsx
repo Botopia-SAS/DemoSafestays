@@ -16,15 +16,7 @@ export function SearchBar(props: Readonly<{ isLoaded?: boolean }>) {
     <div className={`w-full max-w-4xl mx-auto transition-all duration-700 ${
       isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
     }`}>
-      {/* Title */}
-      <div className="text-center mb-6 animate-fade-in-up animation-delay-300">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 playfair-display-sc">
-          Redefining Luxury Living
-        </h1>
-        <p className="text-sm md:text-base text-white/90">
-          Discover elegant furnished homes designed for long stays.
-        </p>
-      </div>
+      {/* Title removed from SearchBar — it's rendered in the Hero to match the reference layout */}
 
       {/* Search Bar */}
       <div className="bg-white/95 backdrop-blur-sm rounded-full shadow-2xl p-1.5 flex items-center gap-2 animate-scale-in animation-delay-500">

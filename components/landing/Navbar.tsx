@@ -35,8 +35,8 @@ export function Navbar({ isLoaded = false, alwaysShowBackground = false }: Navba
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12">
+        <div className="flex justify-between items-center h-20 md:h-24">
           <div className="flex items-center">
             <Link href="/" className="text-2xl font-bold text-white playfair-display-sc hover:scale-110 transition-transform duration-300">
               SafeStays

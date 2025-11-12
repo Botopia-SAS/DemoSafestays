@@ -29,8 +29,8 @@ export function MadridHeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-20">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative z-10 w-full py-8 md:py-12">
+        <div className="container mx-auto px-6 md:px-8 lg:px-12">
           <div className="max-w-3xl">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white playfair-display-sc mb-6 leading-tight">
               Spain&apos;s Opulent<br />Properties
@@ -38,7 +38,7 @@ export function MadridHeroSection() {
             <p className="text-lg font-light text-white/90 mb-8 leading-relaxed max-w-2xl">
               Explore elite living with SafeStays Realty—your premium luxury real estate partner to buy or rent in Madrid.
             </p>
-            <button className="px-8 py-3 bg-white text-gray-900 font-normal text-sm rounded-md hover:bg-gray-100 transition-all duration-300 shadow-lg">
+            <button className="px-8 py-3 bg-white text-gray-900 font-normal text-sm rounded-md hover:bg-gray-100 transition-all duration-300 shadow-lg cursor-default">
               Explore Luxury Homes
             </button>
           </div>

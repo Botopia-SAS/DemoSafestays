@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { LoadingScreen } from './LoadingScreen';
-import { SearchBar } from './SearchBar';
 import Image from 'next/image';
 
 const IMAGES = [
@@ -16,12 +15,10 @@ const IMAGES = [
 export function Hero(props: Readonly<{ onLoadComplete?: (isLoaded: boolean) => void }>) {
   const { onLoadComplete } = props;
   const [showLoading, setShowLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleLoadComplete = () => {
     setShowLoading(false);
-    setIsLoaded(true);
     onLoadComplete?.(true);
   };
 
@@ -37,7 +34,7 @@ export function Hero(props: Readonly<{ onLoadComplete?: (isLoaded: boolean) => v
     <>
       {showLoading && <LoadingScreen onComplete={handleLoadComplete} />}
 
-      <section className="relative min-h-[120vh] flex items-center justify-center overflow-hidden">
+  <section className="relative min-h-[120vh] flex items-center justify-center overflow-hidden">
         {/* Background images carousel */}
         <div className="absolute inset-0">
           {IMAGES.map((image, index) => (
@@ -62,13 +59,24 @@ export function Hero(props: Readonly<{ onLoadComplete?: (isLoaded: boolean) => v
           <div className="absolute inset-0 bg-black/30 pointer-events-none" />
         </div>
 
-        {/* Content with SearchBar */}
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-16">
-          {/* Solo movemos visualmente el título y el searchbar hacia arriba con transform
-              Mantiene el flujo del DOM igual y no toca el resto del hero */}
-          <div className="w-full flex justify-center transform -translate-y-24 md:-translate-y-32 transition-transform duration-300">
-            <SearchBar isLoaded={isLoaded} />
+        {/* Content overlay: render large heading + paragraph (left) like the reference site */}
+        <div className="relative z-10 w-full py-8 md:py-12">
+          <div className="container mx-auto px-6 md:px-8 lg:px-12">
+            <div className="max-w-2xl text-left">
+              <h1 className="playfair-display-sc text-white text-5xl md:text-6xl lg:text-[96px] font-normal leading-tight md:leading-[0.95]">
+                Experience Luxurious Living
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 mt-6 max-w-xl">
+                Discover exceptional residences, where elegance meets comfort, offering unparalleled luxury for your ultimate lifestyle dream.
+              </p>
+              {/* Optional CTA to mimic reference site */}
+              <div className="mt-8">
+                <button className="inline-block bg-white/95 text-gray-800 rounded-md px-5 py-3 shadow-md border border-white hover:bg-white transition-all duration-300">Begin Your Journey</button>
+              </div>
+            </div>
           </div>
+
+          {/* SearchBar removed as requested — only hero content remains */}
         </div>
       </section>
     </>

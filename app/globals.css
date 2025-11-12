@@ -30,16 +30,20 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-playfair-display-sc);
+  /* Use system sans-serif stack by default. If you prefer a specific webfont
+    (Inter, Poppins, etc.) we can load it via Google Fonts or self-host it. */
+  /* Prefer fonts loaded via next/font (variables injected on <body>), then fall back */
+  --font-sans: var(--font-hanken-grotesk, var(--font-inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif));
+  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace);
+  --font-heading: var(--font-noto-serif-display, var(--font-playfair-display-sc, var(--font-playfair-display, var(--font-sans))));
 }
 
 /* Force light mode - disable dark mode */
 body {
   background: #F5EFE7 !important;
   color: #1a1a1a !important;
-  font-family: 'Playfair Display', Georgia, serif;
+  /* Use the system sans-serif stack globally */
+  font-family: var(--font-sans);
 }
 
 html {
@@ -48,7 +52,12 @@ html {
 }
 
 .playfair-display-sc {
-  font-family: var(--font-playfair-display-sc), serif;
+  /* Headings: prefer Noto Serif Display (used on safe-stays.com), then Playfair,
+     then fall back to the configured heading variable and finally the sans stack.
+     This ensures headings appear serif and match the reference site more closely. */
+  font-family: var(--font-noto-serif-display, var(--font-playfair-display-sc, var(--font-heading, var(--font-sans))));
+  /* Use a normal-ish weight for display serif headings to match the reference */
+  font-weight: 400;
 }
 
 @keyframes fadeInUp {
